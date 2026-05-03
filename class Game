@@ -1,0 +1,106 @@
+public class Game
+{
+    private string name;
+    private int price;
+
+    public Game(string name, int price)
+    {
+        this.name = name;
+        SetPrice(price);
+    }
+
+    // Get
+    public string GetName()
+    {
+        return name;
+    }
+
+    public int GetPrice()
+    {
+        return price;
+    }
+
+    // Set
+    public void SetName(string name)
+    {
+        this.name = name;
+    }
+
+    public void SetPrice(int price)
+    {
+        if (price > 0)
+            this.price = price;
+        else
+            throw new ArgumentException("Price must be greater than 0");
+    }
+}
+
+public class Store
+{
+    private Node<Game> lst; // השרשרת אינה ריקה
+
+    public Store(Node<Game> lst)
+    {
+        if (lst == null)
+            throw new ArgumentException("List cannot be empty");
+
+        this.lst = lst;
+    }
+    public int Remove (int n, int pr)
+    {
+        Node<Game> current = lst;
+        Node<Game> prev = null;
+        int count = 0;
+
+        while (current != null && count < n)
+        {
+            if (current.GetValue().GetPrice() == pr)
+            {
+                if (prev == null)
+                {
+                    lst = current.GetNext();
+                    current = lst;
+                }
+                else
+                {
+                    prev.SetNext(current.GetNext());
+                    current = current.GetNext();
+                }
+
+                count++;
+            }
+            else
+            {
+                prev = current;
+                current = current.GetNext();
+            }
+        }
+
+        return count;
+    }
+
+    // Get
+    public Node<Game> GetList()
+    {
+        return lst;
+    }
+
+    // Set
+    public void SetList(Node<Game> lst)
+    {
+        if (lst != null)
+            this.lst = lst;
+    }
+
+    // הדפסת כל המשחקים
+    public void PrintGames()
+    {
+        Node<Game> current = lst;
+        while (current != null)
+        {
+            Console.WriteLine("Name: " + current.GetValue().GetName() +
+                              ", Price: " + current.GetValue().GetPrice());
+            current = current.GetNext();
+        }
+    }
+}
