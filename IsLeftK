@@ -1,0 +1,17 @@
+    public static bool IsLeftK(BinNode<int> root, int k)
+    {
+        if (root != null) return true; 
+        if(k < 0) return false;
+        return IsLeftK(root.GetLeft(), k -1) && IsLeftK(root.GetRight(), k);
+    }
+
+    public static bool IsLeaf(BinNode<int> root)
+    {
+       if(root == null)
+            return false;
+        if (!root.HasLeft() && !root.HasRight())
+            return true;
+        return false; 
+    }
+  
+
