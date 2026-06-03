@@ -1,0 +1,32 @@
+  public static bool IsPrime(int num)
+  {
+      if (num == 1 || num == 2)
+          return true;
+
+      for (int i = 2; i < num; i++)
+      {
+          if (num % i == 0)
+              return false;
+      }
+
+      return true;
+  }
+  public static bool AddNodes (BinNode<int> tr)
+  {
+      int left = 0; 
+      int right = 0;
+      if ( IsPrime(tr.GetValue()) )
+          return false; 
+      for (int i = 2; i < tr.GetValue(); i++)
+      {
+          if(tr.GetValue() % i  == 0)
+          {
+              left = tr.GetValue() / i;
+              right = i;
+              break; 
+          }       
+      }
+      tr.SetLeft(new BinNode<int>(left));
+      tr.SetRight(new BinNode<int>(right));
+      return true;
+  }
