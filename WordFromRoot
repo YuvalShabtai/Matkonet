@@ -1,0 +1,21 @@
+    public static string EraseFirst(string str)
+    {
+        return str.Substring(1);
+    }
+    public static bool WordFromRoot(BinNode<char> tree, string str)
+    {
+        if (tree == null)
+            return false;
+
+        if (str[0] != tree.GetValue())
+            return false;
+
+        string rest = EraseFirst(str);
+
+        if (rest == "")
+            return true;
+
+        return WordFromRoot(tree.GetLeft(), rest) ||
+               WordFromRoot(tree.GetRight(), rest);
+
+    }
